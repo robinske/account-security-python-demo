@@ -15,6 +15,22 @@ Follow our instructions for [how to set up your Python and Flask development env
 **This project uses Python3.**
 
 ### Installation
+
+Quick copy for unix:
+```
+git clone https://github.com/robinske/account-security-python-demo
+cd account-security-python-demo
+python3 -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+cp demo.env.example demo.env
+cp db.json.example db.json
+export FLASK_ENV=development
+flask run
+```
+
+#### Step by step installation:
+
 Clone this repo
 ```
 git clone https://github.com/robinske/account-security-python-demo
@@ -23,7 +39,7 @@ git clone https://github.com/robinske/account-security-python-demo
 If you're not familiar with Python virtual environments, [follow our tutorial for setting up your local Python environment](https://www.twilio.com/docs/usage/quickstart/devenvironment-python#installing-flask-and-twilio-python). Navigate into the project folder and create your virtual environment.
 
 ```
-cd signal-2019-verify-python
+cd account-security-python-demo
 
 python3 -m venv venv
 source venv/bin/activate

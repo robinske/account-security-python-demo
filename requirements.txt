@@ -1,0 +1,5 @@
+authy==2.2.3
+flask==1.0.2
+Flask-WTF==0.14.2
+python-dotenv==0.9.1
+twilio==6.29.2

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="POST" id="challenge-form" action="/verification/check">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                {{ form.token(id="token", placeholder="Verification Token", class_="form-control") }}
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <input type="submit" 
+                    value="Verify Phone"
+                    class="btn btn-info btn-block">
+                </div>
+        </div>
+    </div>
+</form>
+{% endblock %} 

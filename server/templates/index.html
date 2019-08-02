@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <p>
+            Demo implementations of Twilio's Account Security Products: Lookup, Verify (Phone Verification) and Authy (Two-factor authentication)
+        </p>
+        {% include "/partials/_links.html" %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <a href="verification/">
+            <input type="submit" value="Phone Verification" class="btn btn-info btn-block">
+        </a>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <a href="authy/register">
+            <input type="submit" value="Authy 2FA" class="btn btn-info btn-block">
+        </a>
+    </div>
+</div>
+{% endblock %}

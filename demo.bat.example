@@ -1,0 +1,9 @@
+:: create an Authy Application in the console: https://www.twilio.com/console/authy/applications
+SET DEMO_AUTHY_API_KEY='YOUR KEY HERE'
+
+:: create a Verify service in the console: https://www.twilio.com/console/verify/services
+SET VERIFY_SERVICE_SID=''
+
+:: find your credentials in the console: https://www.twilio.com/console
+SET DEMO_TWILIO_ACCOUNT_SID=''
+SET DEMO_TWILIO_AUTH_TOKEN=''

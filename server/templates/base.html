@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twilio Account Security Demo</title>
+    <!--Made by an engineer for engineers-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/favicon.ico') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='js/authy.js') }}"></script>
+    <style>
+        .container {
+            padding-top: 15%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <h3 class="panel-title col-md-8">Account Security Phone Verification</h3>
+                        <div class="text-right col-md-4 small">{% if g.email %}{{ g.email }} | {% endif %}<a href="/">Home</a></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                {% if get_flashed_messages() %}
+                <div class="alert alert-danger" role="alert">{{ get_flashed_messages() | first }}</div>
+                {% endif %}
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

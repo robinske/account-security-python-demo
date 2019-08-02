@@ -1,0 +1,15 @@
+# don't upload sensitive info
+demo.env
+db.json
+
+# python virtual environments
+venv/
+env/
+
+# python compiled files
+*.pyc
+__pycache__/
+
+# system specific
+.vscode
+.DS_Store

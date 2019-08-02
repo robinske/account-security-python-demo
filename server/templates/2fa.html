@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            {{ locale_form.locale(id="locale", class_="form-control") }}
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="SMS" onclick="sms();" class="btn btn-info btn-block">
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Voice" onclick="voice();" class="btn btn-info btn-block">
+        </div>
+        <div class="col-md-3">
+            <input type="submit" value="Push" id="send-push" class="btn btn-primary btn-block" data-toggle="modal" data-target="#pushModal">
+        </div>
+    </div>
+</div>
+<form role="form" method="POST" action="/authy/2fa">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+                {{ form.token(id="token", placeholder="Token via SMS, Voice or the Authy SoftToken", class_="form-control") }}
+                <div class="input-group-btn">
+                    <input type="submit" value="Verify" class="btn btn-success btn-block">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>    
+<!-- Modal -->
+<div class="modal fade" id="pushModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="push-status">
+                <p>Push notification sent. Check the Authy app. An alert will appear when the status is updated.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

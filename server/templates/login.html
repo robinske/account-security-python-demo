@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<form role="form" method="POST" action="/authy/login">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <input type="text" name="email" id="email" class="form-control input-sm"
+                        placeholder="Email">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <input type="password" name="password" id="login_password"
+                        class="form-control input-sm"
+                        placeholder="Password">
+            </div>
+        </div>
+    </div>
+
+    <input type="submit" value="Login" class="btn btn-info btn-block">
+    <small style="float: right;"><a href="/authy/register">Not registered?</a></small>
+</form>
+{% endblock %}

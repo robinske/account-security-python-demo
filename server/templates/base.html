@@ -35,9 +35,11 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                {% if get_flashed_messages() %}
-                <div class="alert alert-danger" role="alert">{{ get_flashed_messages() | first }}</div>
+                {% if get_flashed_messages(category_filter=["error"]) %}
+                <div class="alert alert-danger" role="alert">{{ get_flashed_messages(category_filter=["error"]) | first }}</div>
                 {% endif %}
+                <div id="error-alert" class="alert alert-danger" role="alert" style="display:none;"></div>
+                <div id="info-alert" class="alert alert-info" role="alert" style="display:none;"></div>
                 {% block content %}
                 {% endblock %}
                 </div>

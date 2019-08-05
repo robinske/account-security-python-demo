@@ -44,7 +44,7 @@ def twofa_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
         if not g.twofa:
-            flash("Complete 2FA in order to view protected content.")
+            flash("Complete 2FA in order to view protected content.", "error")
             return redirect(url_for('authy.twofa'))
         return view(**kwargs)
     return wrapped_view
@@ -83,13 +83,13 @@ def login():
             session['email'] = email
             return redirect(url_for('authy.twofa'))
         else:
-            flash("Please register")
+            flash("Please register", "error")
             return redirect(url_for("authy.register"))
 
     return render_template('login.html', form=form)
 
 
-@bp.route('/logout', methods=['POST'])
+@bp.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.clear()
     return redirect(url_for("index"))
@@ -111,7 +111,7 @@ def twofa():
             session['twofa'] = True
             return redirect(url_for("authy.protected"))
         else:
-            flash("Incorrect token. Please try again.")
+            flash("Incorrect token. Please try again.", "error")
     
     return render_template('2fa.html', form=challenge_form, locale_form=locale_form)
 
@@ -121,8 +121,11 @@ def send_sms():
     authy_id = session['authy_id']
     locale = request.form.get('locale', 'en')
 
-    success = utils.send_sms_token(authy_id, locale)
-    return jsonify({"success": success})
+    (success, error) = utils.send_sms_token(authy_id, locale)
+    resp = {"success": success}
+    if error is not None:
+        resp['error'] = error
+    return jsonify(resp)
 
 
 @bp.route('/voice', methods=['POST'])
@@ -130,9 +133,11 @@ def send_voice_call():
     authy_id = session['authy_id']
     locale = request.form.get('locale', 'en')
 
-    success = utils.send_voice_token(authy_id, locale)
-    return jsonify({"success": success})
-
+    (success, error) = utils.send_voice_token(authy_id, locale)
+    resp = {"success": success}
+    if error is not None:
+        resp['error'] = error
+        return jsonify(resp)
 
 @bp.route('/push', methods=['POST'])
 def send_push():
@@ -144,7 +149,7 @@ def send_push():
             "uuid": uuid
         })
     else:
-        flash("Error sending authorization. {}".format(errors))
+        flash("Error sending authorization. {}".format(errors), "error")
         return jsonify({"success": False})
 
 

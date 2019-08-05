@@ -2,8 +2,10 @@ function sms() {
   var locale = $("#locale").val();
   $.post("/authy/sms", {locale: locale}, function(data) {
     if (data.success) {
-      alert("sent authy sms 2.0");
+      $("#info-alert").text("SMS sent").show();
       console.log("sent authy sms2.0");
+    } else {
+      $("#error-alert").text(data.error).show();
     };
   });
 };
@@ -13,8 +15,10 @@ function voice() {
   var locale = $("#locale").val();
   $.post("/authy/voice", {locale: locale}, function(data) {
     if (data.success) {
-        alert("sent authy voice call");
+        $("#info-alert").text("Voice call started.").show();
         console.log("sent authy voice call");
+    } else {
+      $("#error-alert").text(data.error).show();
     };
   });
 }

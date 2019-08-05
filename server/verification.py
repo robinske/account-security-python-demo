@@ -65,7 +65,7 @@ def check():
         if verification_status == "approved":
             return redirect(url_for("verification.protected"))
         else:
-            flash("Incorrect token. Please try again.")
+            flash("Incorrect token. Please try again.", "error")
 
     return render_template('verification_check.html', form=form)
 

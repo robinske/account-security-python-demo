@@ -72,7 +72,7 @@ def register_authy_user(email, country_code, phone_number):
         _save_user(email, country_code, phone_number, user.id)
         return user.id
     else:
-        flash("Error registering user with Authy: '{}'".format(user.errors()))
+        flash("Error registering user with Authy: '{}'".format(user.errors()), "error")
     
     
 def send_sms_token(authy_id, locale):
@@ -80,7 +80,10 @@ def send_sms_token(authy_id, locale):
 
     sms = authy_api.users.request_sms(authy_id, {'force': True, 'locale': locale})
 
-    return sms.ok()
+    if sms.ok():
+        return (True, None)
+    else:
+        return (False, sms.errors()['message'])
 
 
 def send_voice_token(authy_id, locale):
@@ -88,7 +91,10 @@ def send_voice_token(authy_id, locale):
 
     call = authy_api.users.request_call(authy_id, {'force': True, 'locale': locale})
 
-    return call.ok()
+    if call.ok():
+        return (True, None)
+    else:
+        return (False, call.errors()['message'])
 
 
 def verify_authy_token(authy_id, token):
@@ -97,7 +103,7 @@ def verify_authy_token(authy_id, token):
     try:
         verification = authy_api.tokens.verify(authy_id, token)
     except Exception as e:
-        flash("Error validating token: {}".format(e))
+        flash("Error validating token: {}".format(e), "error")
         return False
 
     return verification.ok()

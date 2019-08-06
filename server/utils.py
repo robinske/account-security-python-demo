@@ -81,7 +81,7 @@ def send_sms_token(authy_id, locale):
     sms = authy_api.users.request_sms(authy_id, {'force': True, 'locale': locale})
 
     if sms.ok():
-        return (True, None)
+        return (True, sms.content['message'])
     else:
         return (False, sms.errors()['message'])
 
@@ -92,9 +92,9 @@ def send_voice_token(authy_id, locale):
     call = authy_api.users.request_call(authy_id, {'force': True, 'locale': locale})
 
     if call.ok():
-        return (True, None)
+        return (True, call.content['message'])
     else:
-        return (False, call.errors()['message'])
+        return (False, call.errors())
 
 
 def verify_authy_token(authy_id, token):

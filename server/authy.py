@@ -63,6 +63,10 @@ def register():
         session['authy_id'] = authy_id
         session['email'] = email
         return redirect(url_for('authy.twofa'))
+    else:
+        for (k, err) in form.errors.items():
+            if err:
+                flash(err[0], "error")
 
     return render_template('register.html', form=form, g=g)
 
@@ -121,11 +125,8 @@ def send_sms():
     authy_id = session['authy_id']
     locale = request.form.get('locale', 'en')
 
-    (success, error) = utils.send_sms_token(authy_id, locale)
-    resp = {"success": success}
-    if error is not None:
-        resp['error'] = error
-    return jsonify(resp)
+    (success, msg) = utils.send_sms_token(authy_id, locale)
+    return jsonify({"success": success, "msg": msg})
 
 
 @bp.route('/voice', methods=['POST'])
@@ -133,11 +134,8 @@ def send_voice_call():
     authy_id = session['authy_id']
     locale = request.form.get('locale', 'en')
 
-    (success, error) = utils.send_voice_token(authy_id, locale)
-    resp = {"success": success}
-    if error is not None:
-        resp['error'] = error
-        return jsonify(resp)
+    (success, msg) = utils.send_voice_token(authy_id, locale)
+    return jsonify({"success": success, "msg": msg})
 
 @bp.route('/push', methods=['POST'])
 def send_push():
@@ -166,5 +164,5 @@ def push_status():
 @login_required
 @twofa_required
 def protected():
-    message = "Congratulations! You have successfully implemented Authy and are now viewing protected content"
+    message = "Congratulations! You have successfully implemented Authy and are now viewing protected content."
     return render_template("protected.html", message=message)

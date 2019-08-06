@@ -2,16 +2,16 @@
 {% block content %}
 <div class="form-group">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-xs-3 col-sm-3 col-md-3">
             {{ locale_form.locale(id="locale", class_="form-control") }}
         </div>
-        <div class="col-md-3">
+        <div class="col-xs-3 col-sm-3 col-md-3">
             <input type="submit" value="SMS" onclick="sms();" class="btn btn-info btn-block">
         </div>
-        <div class="col-md-3">
+        <div class="col-xs-3 col-sm-3 col-md-3">
             <input type="submit" value="Voice" onclick="voice();" class="btn btn-info btn-block">
         </div>
-        <div class="col-md-3">
+        <div class="col-xs-3 col-sm-3 col-md-3">
             <input type="submit" value="Push" id="send-push" class="btn btn-primary btn-block" data-toggle="modal" data-target="#pushModal">
         </div>
     </div>

@@ -2,10 +2,10 @@ function sms() {
   var locale = $("#locale").val();
   $.post("/authy/sms", {locale: locale}, function(data) {
     if (data.success) {
-      $("#info-alert").text("SMS sent").show();
-      console.log("sent authy sms2.0");
+      $("#info-alert").text(data.msg).show();
+      console.log(data.msg);
     } else {
-      $("#error-alert").text(data.error).show();
+      $("#error-alert").text(data.msg).show();
     };
   });
 };

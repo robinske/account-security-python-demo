@@ -9,7 +9,7 @@
                     {{ lookup_form.country_code(id="country_code", placeholder="Country Code", class_="form-control") }}
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-9">
+            <div class="col-xs-9 col-sm-9 col-md-9">
                 <div class="form-group">
                     {{ lookup_form.phone_number(id="phone_number", placeholder="Phone #", class_="form-control") }}
                 </div>
@@ -33,24 +33,24 @@
     <form method="POST" action="/verification/start">
         {{ verify_form.hidden_tag() }}
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-xs-3 col-sm-3 col-md-3">
                 <div class="form-group">
                     {{ verify_form.country_code(id="country_code", placeholder="Country Code", class_="form-control") }}
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-xs-9 col-sm-9 col-md-9">
                 <div class="form-group">
                     {{ verify_form.phone_number(id="phone_number", placeholder="Phone #", class_="form-control") }}
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="form-group">
                     {{ verify_form.channel(id="channel", class_="form-control") }}
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-xs-6 col-sm-6 col-md-6">
                 <div class="form-group">
                     {{ verify_form.locale(id="locale", class_="form-control") }}
                 </div>

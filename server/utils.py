@@ -15,27 +15,31 @@ def lookup(phone_number):
 
 
 def start_verification(phone_number, channel, locale):
+    """
+    Send a phone verification to the provided number.
+    Return the verification SID
+    """
     client = Client(app.config['TWILIO_ACCT_SID'], app.config['TWILIO_AUTH_TOKEN'])
     SERVICE = app.config['VERIFY_SERVICE_SID']
+
+    # TODO SEND VERIFICATION
+    # https://www.twilio.com/docs/verify/api/verification
     
-    verification = client.verify \
-        .services(SERVICE) \
-        .verifications \
-        .create(to=phone_number, channel=channel, locale=locale)
-    
-    print("Verification sent to {} with SID: '{}'".format(phone_number, verification.sid))
-    return verification.sid
+    return "TODO - verification SID"
 
 
 def check_verification(phone_number, token):
+    """
+    CHECK a phone verification with the provided token.
+    Return the verification status
+    """
     client = Client(app.config['TWILIO_ACCT_SID'], app.config['TWILIO_AUTH_TOKEN'])
     SERVICE = app.config['VERIFY_SERVICE_SID']
-    verification_check = client.verify \
-        .services(SERVICE) \
-        .verification_checks \
-        .create(to=phone_number, code=token)
     
-    return verification_check.status
+    # TODO CHECK VERIFICATION
+    # https://www.twilio.com/docs/verify/api/verification-check
+
+    return "TODO - verification status"
 
 
 def _save_user(email, country_code, phone_number, authy_id):
@@ -65,73 +69,73 @@ def get_authy_id(email):
 
 
 def register_authy_user(email, country_code, phone_number):
+    """
+    Register the user with Authy.
+    Returns the Authy ID.
+    """
     authy_api = AuthyApiClient(app.config['AUTHY_API_KEY'])
     
-    user = authy_api.users.create(email, phone_number, country_code)
-    if user.ok():
-        _save_user(email, country_code, phone_number, user.id)
-        return user.id
-    else:
-        flash("Error registering user with Authy: '{}'".format(user.errors()), "error")
+    # TODO - register Authy user
+    # https://github.com/twilio/authy-python#users
+    # API reference: https://www.twilio.com/docs/authy/api/users#enabling-new-user
+    
+    return "TODO - authy ID"
     
     
 def send_sms_token(authy_id, locale):
+    """
+    Send an SMS token
+    Returns a tuple of (success: Boolean, message: String) 
+    """
     authy_api = AuthyApiClient(app.config['AUTHY_API_KEY'])
 
-    sms = authy_api.users.request_sms(authy_id, {'force': True, 'locale': locale})
+    # TODO - send SMS
+    # https://github.com/twilio/authy-python#sending-sms-2fa-tokens
+    # API reference: https://www.twilio.com/docs/authy/api/one-time-passwords#request-a-one-time-password
 
-    if sms.ok():
-        return (True, sms.content['message'])
-    else:
-        return (False, sms.errors()['message'])
+    return (False, "TODO - implement this")
 
 
 def send_voice_token(authy_id, locale):
+    """
+    Send an Voice token
+    Returns a tuple of (success: Boolean, message: String) 
+    """
     authy_api = AuthyApiClient(app.config['AUTHY_API_KEY'])
 
-    call = authy_api.users.request_call(authy_id, {'force': True, 'locale': locale})
-
-    if call.ok():
-        return (True, call.content['message'])
-    else:
-        return (False, call.errors())
+    # TODO - send Voice call
+    # https://github.com/twilio/authy-python#sending-call-2fa-tokens
+    # API reference: https://www.twilio.com/docs/authy/api/one-time-passwords#request-a-one-time-password
+    
+    return (False, "TODO - implement this")
 
 
 def verify_authy_token(authy_id, token):
+    """
+    Check the token
+    Returns success boolean
+    """
     authy_api = AuthyApiClient(app.config['AUTHY_API_KEY'])
 
-    try:
-        verification = authy_api.tokens.verify(authy_id, token)
-    except Exception as e:
-        flash("Error validating token: {}".format(e), "error")
-        return False
+    # TODO - check token
+    # https://github.com/twilio/authy-python#verifying-tokens
+    # API reference: https://www.twilio.com/docs/authy/api/one-time-passwords#verify-a-one-time-password
 
-    return verification.ok()
+    return False # TODO
 
 
 def send_push_auth(authy_id):
+    """
+    Starts a push authentication
+    Returns a tuple of (push_uuid: String, errors: String) 
+    """
     authy_api = AuthyApiClient(app.config['AUTHY_API_KEY'])
 
-    details = {}
-    details['Account Number'] = '123456'
+    # TODO start push auth
+    # https://github.com/twilio/authy-python#send-approval-request
+    # API reference: https://www.twilio.com/docs/authy/api/push-authentications#create-an-approval-request
 
-    hidden_details = {}
-    hidden_details['ip_address'] = '100.12.345.67'
-
-    message = "Push authorization request from Authy Demo App."
-    seconds_to_expire = 120
-
-    response = authy_api.one_touch.send_request(
-        authy_id,
-        message,
-        seconds_to_expire=seconds_to_expire,
-        details=details,
-        hidden_details=hidden_details)
-    
-    if response.ok():
-        return (response.get_uuid(), None)
-    else:
-        return (None, resp.errors()['message'])
+    return (None, "TODO - implement this")
 
 
 def check_push_status(uuid):
